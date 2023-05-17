@@ -1,7 +1,7 @@
 package com.backend.gateway.FIlter;
 
 import com.backend.gateway.FIlter.lib.SkipFilter;
-import com.backend.pojo.pojo.User;
+//import com.backend.pojo.pojo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;

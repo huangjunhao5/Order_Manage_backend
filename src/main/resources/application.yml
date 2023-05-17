@@ -1,9 +1,0 @@
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: FlutterBackendDB
-    password: Zust2022
-    url: jdbc:mysql://hjhcj.com:3306/FlutterBackendDB?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-
-server:
-  port: 8090

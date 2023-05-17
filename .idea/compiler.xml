@@ -8,7 +8,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="pojo" />
         <module name="storehouse-service" />
-        <module name="backend" />
         <module name="order-service" />
         <module name="user-service" />
         <module name="eureka-server" />
