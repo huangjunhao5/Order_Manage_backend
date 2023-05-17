@@ -1,0 +1,62 @@
+server:
+  port: 8326
+spring:
+  application:
+    name: gateway
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  cloud:
+    nacos:
+      discovery:
+        username: nacos
+        password: nacos
+        server-addr: localhost:8848
+
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            # 允许携带认证信息
+            # 允许跨域的源(网站域名/ip)，设置*为全部
+            # 允许跨域请求里的head字段，设置*为全部
+            # 允许跨域的method， 默认为GET和OPTIONS，设置*为全部
+            # 跨域允许的有效期
+            #是否允许cookie跨域  true允许
+            allowCredentials: true
+            #允许跨域的url * 则允许全部
+            allowedOrigins: '127.0.0.1:8326'
+            # 允许跨域的方法 * 则全部
+            allowedMethods: '*'
+            # 跨域预检时间
+            maxAge: 180
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/user/**
+#          filters:
+#            - name: PasswordChangeFilter
+
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/order/**
+
+        - id: storehouse-service
+          uri: lb://storehouse-service
+          predicates:
+            - Path=/storehouse/**
+
+      discovery:
+        locator:
+          enabled: true
+
+
+
+
+
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8080/eureka/

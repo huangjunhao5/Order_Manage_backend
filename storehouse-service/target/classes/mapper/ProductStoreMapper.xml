@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.backend.storehouseservice.mapper.ProductStoreMapper">
+    <select id="selectAll" resultType="com.backend.pojo.pojo.ProductStore">
+        select id, code, name, price, num
+        from products join storehouse s on products.id = s.productid;
+    </select>
+    <select id="selectById" resultType="com.backend.pojo.pojo.ProductStore">
+        select id, code, name, price, num
+        from products join storehouse s on products.id = s.productid
+        where products.id = #{id};
+    </select>
+</mapper>

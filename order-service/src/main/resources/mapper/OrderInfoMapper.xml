@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.backend.orderservice.mapper.OrderInfoMapper">
+    <select id="selectById" resultType="com.backend.pojo.pojo.OrderInfo">
+        select
+            oi.id, oi.createtime, oi.flag, oi.customer,
+            (select
+                 sum(orderlist.num * p.price )
+             from
+                 orderlist join products p on orderlist.productid = p.id
+             where
+                 orderlist.orderid = oi.id
+            ) as price
+        from
+            orderinfo oi
+        where
+            oi.id = #{id};
+    </select>
+    <select id="selectAll" resultType="com.backend.pojo.pojo.OrderInfo">
+        select
+            oi.id, oi.createtime, oi.flag, oi.customer ,
+            (select
+                 sum(orderlist.num * p.price )
+             from
+                 orderlist join products p on orderlist.productid = p.id
+             where
+                 orderlist.orderid = oi.id
+            ) as price
+        from
+            orderinfo oi
+        order by
+            oi.createtime desc ;
+    </select>
+    <select id="selectByType" resultType="com.backend.pojo.pojo.OrderInfo">
+        select
+            oi.id, oi.createtime, oi.flag, oi.customer,
+            (select
+                 sum(orderlist.num * p.price )
+             from
+                 orderlist join products p on orderlist.productid = p.id
+             where
+                 orderlist.orderid = oi.id
+            ) as price
+        from
+            orderinfo oi
+        where
+            oi.flag = #{type};
+    </select>
+</mapper>
