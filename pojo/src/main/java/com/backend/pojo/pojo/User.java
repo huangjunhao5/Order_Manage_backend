@@ -5,6 +5,8 @@ import lombok.Data;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Objects;
+
 @Data
 public class User {
     private Integer id;
@@ -21,9 +23,9 @@ public class User {
     public static Integer admin = 1;
     public static Integer user = 2;
     public static boolean isAdmin(Integer userType){
-        return (userType == User.superAdmin && userType == User.superAdmin);
+        return (Objects.equals(userType, User.superAdmin) || Objects.equals(userType, User.admin));
     }
     public boolean isSuperAdmin(Integer userType){
-        return (userType == User.superAdmin);
+        return (Objects.equals(userType, User.superAdmin));
     }
 }

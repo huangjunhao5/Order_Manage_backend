@@ -115,7 +115,4 @@ public class UserController {
     public Result GetAllUser() throws ServerException {
         return Result.ok(userService.getAllUser()) ;
     }
-
-
-
 }

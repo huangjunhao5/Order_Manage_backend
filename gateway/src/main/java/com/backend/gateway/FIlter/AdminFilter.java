@@ -34,7 +34,7 @@ public class AdminFilter implements GlobalFilter, Ordered {
             String type = request.getHeaders().getFirst("userType");
             // 获取用户权限级别并进行判断
             Integer userType = Integer.valueOf(type);
-            if (User.isAdmin(userType)) {
+            if (!User.isAdmin(userType)) {
                 // 权限不足，返回未授权的状态码
                 log.error("Invalid visit: no access");
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
@@ -45,9 +45,10 @@ public class AdminFilter implements GlobalFilter, Ordered {
         if (method == HttpMethod.GET && ("/user".equals(path) || "/user/".equals(path))) {
             // 获取用户权限级别并进行判断
             Integer userType = Integer.valueOf(request.getHeaders().getFirst("userType"));
-            if (User.isAdmin(userType)) {
+            log.info(userType.toString());
+            if (!User.isAdmin(userType)) {
                 // 权限不足，返回未授权的状态码
-                log.error("invalid token");
+                log.error("invalid user: " + userType);
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                 return exchange.getResponse().setComplete();
             }
