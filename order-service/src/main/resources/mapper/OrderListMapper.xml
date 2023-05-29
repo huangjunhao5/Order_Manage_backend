@@ -10,11 +10,24 @@
             (#{orderId}, #{orderList.productid}, #{orderList.num})
         </foreach>
     </insert>
+    <delete id="deleteByOrderId">
+        delete from orderlist where orderid = #{id};
+    </delete>
     <select id="selectByOrderId" resultType="com.backend.pojo.pojo.OrderList">
         select
-            orderid, productid, num
-        from orderlist
+            orderid,
+            productid,
+            num,
+            (select name from products where id = oi.productid) as productname
+        from orderlist oi
         where orderid = #{id};
     </select>
-
+    <select id="getPrice" resultType="java.lang.Integer">
+        select
+            sum(orderlist.num * p.price )
+        from
+            orderlist join products p on orderlist.productid = p.id
+        where
+            orderlist.orderid = #{id};
+    </select>
 </mapper>

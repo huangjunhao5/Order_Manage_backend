@@ -70,7 +70,7 @@ public class OrderController {
     public Result updateOrderInfo(@RequestBody OrderInfo order){
         boolean flag = orderService.updateOrderInfo(order);
         if(flag){
-            return Result.ok("修改成成功！", null);
+            return Result.ok("修改成功！", null);
         }else{
             return Result.err("修改失败，请检查数据是否合法！", null);
         }

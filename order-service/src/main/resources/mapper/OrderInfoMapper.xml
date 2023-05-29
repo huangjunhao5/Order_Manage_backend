@@ -6,13 +6,7 @@
     <select id="selectById" resultType="com.backend.pojo.pojo.OrderInfo">
         select
             oi.id, oi.createtime, oi.flag, oi.customer,
-            (select
-                 sum(orderlist.num * p.price )
-             from
-                 orderlist join products p on orderlist.productid = p.id
-             where
-                 orderlist.orderid = oi.id
-            ) as price
+            oi.price
         from
             orderinfo oi
         where
@@ -21,13 +15,7 @@
     <select id="selectAll" resultType="com.backend.pojo.pojo.OrderInfo">
         select
             oi.id, oi.createtime, oi.flag, oi.customer ,
-            (select
-                 sum(orderlist.num * p.price )
-             from
-                 orderlist join products p on orderlist.productid = p.id
-             where
-                 orderlist.orderid = oi.id
-            ) as price
+            oi.price
         from
             orderinfo oi
         order by
@@ -36,13 +24,7 @@
     <select id="selectByType" resultType="com.backend.pojo.pojo.OrderInfo">
         select
             oi.id, oi.createtime, oi.flag, oi.customer,
-            (select
-                 sum(orderlist.num * p.price )
-             from
-                 orderlist join products p on orderlist.productid = p.id
-             where
-                 orderlist.orderid = oi.id
-            ) as price
+            oi.price
         from
             orderinfo oi
         where

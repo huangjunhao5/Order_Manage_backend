@@ -20,8 +20,8 @@ spring:
       maxWait: 6000000        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
       timeBetweenEvictionRunsMillis: 6000
       # 配置有一个连接在连接池中的最小生存时间，单位是毫秒
-      minEvictableIdleTimeMillis: 180000
-      maxLifetime: 90000000
+      minEvictableIdleTimeMillis: 18000
+      maxLifetime: 900000
       validationQuery: SELECT 1 FROM DUAL
       testWhileIdle: true
       testOnBorrow: false

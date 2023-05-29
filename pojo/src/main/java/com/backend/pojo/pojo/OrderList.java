@@ -30,7 +30,8 @@ public class OrderList {
 
     @TableField("productid")
     private Integer productId;
-
+    @TableField("productname")
+    private String productName;
     private Integer num;
 
 }

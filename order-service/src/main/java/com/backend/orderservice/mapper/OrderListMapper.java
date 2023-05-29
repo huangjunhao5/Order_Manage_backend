@@ -10,4 +10,7 @@ import java.util.List;
 public interface OrderListMapper extends BaseMapper<OrderList> {
     public Integer insertAll(List<OrderList> orderLists, Integer orderId);
     public List<OrderList> selectByOrderId(Integer id);
+
+    public void deleteByOrderId(Integer id);
+    public Integer getPrice(Integer id);
 }

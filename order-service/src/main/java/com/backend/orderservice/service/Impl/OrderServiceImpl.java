@@ -8,6 +8,7 @@ import com.backend.pojo.client.Result;
 import com.backend.pojo.client.StorehouseClient;
 import com.backend.pojo.pojo.*;
 import io.seata.spring.annotation.GlobalTransactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,23 +18,28 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
 
+@Slf4j
 @Service
 public class OrderServiceImpl implements OrderService {
-    @Autowired
-    private OrderInfoMapper orderInfoMapper;
-    @Autowired
-    private OrderListMapper orderListMapper;
+    private final OrderInfoMapper orderInfoMapper;
+    private final OrderListMapper orderListMapper;
 
-    @Autowired
-    private OrderMapper orderMapper;
+    private final OrderMapper orderMapper;
 
-    @Autowired
-    private StorehouseClient storehouseClient;
+    private final StorehouseClient storehouseClient;
+
+    public OrderServiceImpl(OrderInfoMapper orderInfoMapper, OrderListMapper orderListMapper, OrderMapper orderMapper, StorehouseClient storehouseClient) {
+        this.orderInfoMapper = orderInfoMapper;
+        this.orderListMapper = orderListMapper;
+        this.orderMapper = orderMapper;
+        this.storehouseClient = storehouseClient;
+    }
 
     @GlobalTransactional
     @Transactional
     @Override
     public boolean createNewOrder(Order order) {
+        Integer price = 0;
         OrderInfo orderInfo = order.getOrderInfo();
         Timestamp d = new Timestamp(System.currentTimeMillis());
         orderInfo.setCreateTime(d);
@@ -58,6 +64,11 @@ public class OrderServiceImpl implements OrderService {
         orderInfoMapper.insert(orderInfo);
 //        System.out.println(orderInfo.getId());
         orderListMapper.insertAll(orderLists,orderInfo.getId());
+        price = orderListMapper.getPrice(orderInfo.getId());
+        log.info(price.toString());
+        orderInfo.setPrice(price);
+        log.info(orderInfo.toString());
+        orderInfoMapper.updateById(orderInfo);
         return true;
     }
 
@@ -163,17 +174,10 @@ public class OrderServiceImpl implements OrderService {
     @GlobalTransactional
     @Override
     public boolean cancerOrderById(Integer id) {
-        List<OrderList> orderLists = orderListMapper.selectByOrderId(id);
-        for(OrderList orderList: orderLists){
-            boolean flag = deleteList(orderList);
-            if(flag == false){
-                TransactionAspectSupport.currentTransactionStatus()
-                        .setRollbackOnly();
-                return false;
-            }
-        }
+        orderListMapper.deleteByOrderId(id);
         OrderInfo orderInfo = orderInfoMapper.selectById(id);
         orderInfo.setFlag(OrderInfo.CanceledFlag);
+        log.info(orderInfo.toString());
         orderInfoMapper.updateById(orderInfo);
         return true;
     }
