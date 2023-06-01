@@ -6,11 +6,13 @@ import com.backend.pojo.pojo.Order;
 import com.backend.pojo.pojo.OrderInfo;
 import com.backend.pojo.pojo.OrderList;
 import com.backend.pojo.pojo.ProductStore;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -22,6 +24,7 @@ public class OrderController {
 
     @PostMapping
     public Result createNewOrder(@RequestBody Order order){
+        log.info(order.toString());
         boolean flag = orderService.createNewOrder(order);
         if(flag){
             return Result.ok("订单新建成功！", null);
