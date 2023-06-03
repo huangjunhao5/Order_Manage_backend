@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev
   cloud:
     nacos:
       discovery:
@@ -8,10 +10,6 @@ spring:
   application:
     name: order-service
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: FlutterBackendDB
-    password: Zust2022
-    url: jdbc:mysql://hjhcj.com:3306/FlutterBackendDB?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     druid:
       initialSize: 10
       minIdle: 10

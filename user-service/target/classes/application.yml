@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev
   cloud:
     nacos:
       discovery:
@@ -8,11 +10,6 @@ spring:
   application:
     name: user-service
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource # 配置数据库连接池
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: FlutterBackendDB
-    password: Zust2022
-    url: jdbc:mysql://hjhcj.com:3306/flutterbackenddb
     druid:
       initialSize: 10
       minIdle: 10
