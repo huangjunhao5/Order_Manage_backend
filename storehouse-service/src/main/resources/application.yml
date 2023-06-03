@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev
   cloud:
     alibaba:
       seata:
@@ -11,11 +13,6 @@ spring:
   application:
     name: storehouse-service
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource # 配置数据库连接池
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: FlutterBackendDB
-    password: Zust2022
-    url: jdbc:mysql://hjhcj.com:3306/FlutterBackendDB?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     druid:
       initialSize: 10
       minIdle: 10
